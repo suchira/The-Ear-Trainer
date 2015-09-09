@@ -724,6 +724,8 @@ public class MainMenuJFrame extends javax.swing.JFrame {
         dynamicChangingPanel.removeAll();
         dynamicChangingPanel.add(practiceButtonPanel, BorderLayout.CENTER);
         dynamicChangingPanel.repaint();
+        
+        initializeCurrentStat();
         this.setVisible(true);
     }//GEN-LAST:event_practiceButtonActionPerformed
 

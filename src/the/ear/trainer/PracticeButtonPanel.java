@@ -223,7 +223,36 @@ public class PracticeButtonPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_startingFromComboBoxActionPerformed
 
     private void categoryComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_categoryComboBoxActionPerformed
-        
+        levelComboBox.removeAllItems();
+        List<String> list = new ArrayList<>();
+        if(categoryComboBox.getSelectedItem().toString().equals("Scales")){
+            String[] array = {"Level 1", "Level 2", "Level 3"};
+            for (String string : array) {
+                list.add(string);
+            }
+        }
+        if(categoryComboBox.getSelectedItem().toString().equals("Intervals")){
+            String[] array = {"Level 1", "Level 2", "Level 3", "Level 4", "Level 5", "Level 6", "Level 7", "Level 8", "Level 9"};
+            for (String string : array) {
+                list.add(string);
+            }
+        }
+        if(categoryComboBox.getSelectedItem().toString().equals("Notes")){
+            String[] array = {"Level 1", "Level 2", "Level 3", "Level 4", "Level 5"};
+            for (String string : array) {
+                list.add(string);
+            }
+        }
+        if(categoryComboBox.getSelectedItem().toString().equals("Chords")){
+            String[] array = {"Level 1", "Level 2", "Level 3", "Level 4", "Level 5", "Level 6"};
+            for (String string : array) {
+                list.add(string);
+            }
+        }
+        for (String string : list) {
+            System.out.println("Items: " + string);
+            levelComboBox.addItem(string);
+        }
     }//GEN-LAST:event_categoryComboBoxActionPerformed
 
     private void levelComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_levelComboBoxActionPerformed
