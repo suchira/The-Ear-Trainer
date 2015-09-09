@@ -9,6 +9,8 @@ package the.ear.trainer;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
+import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -19,6 +21,7 @@ import java.util.logging.Logger;
 import javax.sound.midi.Instrument;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.WindowConstants;
 import org.jfugue.player.Player;
 import org.jfugue.theory.Intervals;
 import org.jfugue.theory.*;
@@ -53,6 +56,17 @@ public class MainMenuJFrame extends javax.swing.JFrame {
     
     private Player player = new Player();
     int instrument = 0;
+    
+    private enum Instrument{
+        PIANO(0), GUITAR(24), SITAR(104), CHURCH_ORGAN(19), VIOLIN(40);
+        private int value;
+        private Instrument(int value){
+            this.value = value;
+        }
+        public int getValue(){
+            return value;
+        }
+    }
     /**
      * Creates new form MainMenuJFrame
      */
@@ -70,6 +84,7 @@ public class MainMenuJFrame extends javax.swing.JFrame {
         this.repaint();
         this.user = user;
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         
         updateUserDetails();
         
@@ -169,6 +184,13 @@ public class MainMenuJFrame extends javax.swing.JFrame {
         currentScoreLabel = new javax.swing.JLabel();
         practiceButton = new javax.swing.JButton();
         performanceButton = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -498,6 +520,11 @@ public class MainMenuJFrame extends javax.swing.JFrame {
 
         logoutButton.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         logoutButton.setText("Logout");
+        logoutButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logoutButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout menuBarPanelLayout = new javax.swing.GroupLayout(menuBarPanel);
         menuBarPanel.setLayout(menuBarPanelLayout);
@@ -667,6 +694,33 @@ public class MainMenuJFrame extends javax.swing.JFrame {
             }
         });
 
+        jMenu1.setText("File");
+
+        jMenuItem2.setText("Backup");
+        jMenu1.add(jMenuItem2);
+
+        jMenuItem1.setText("Exit");
+        jMenu1.add(jMenuItem1);
+
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Edit");
+
+        jMenuItem3.setText("Grant Permission");
+        jMenu2.add(jMenuItem3);
+
+        jMenuItem4.setText("Reset");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem4);
+
+        jMenuBar1.add(jMenu2);
+
+        setJMenuBar(jMenuBar1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -706,7 +760,7 @@ public class MainMenuJFrame extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(practiceButton)
                             .addComponent(performanceButton))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(currentStatisticsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(instrumentPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -752,11 +806,6 @@ public class MainMenuJFrame extends javax.swing.JFrame {
         checkInstrument();
         player.play("i"+ instrument + " G");
     }//GEN-LAST:event_gButtonActionPerformed
-
-    private void instrumentNumberTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_instrumentNumberTextFieldActionPerformed
-        // TODO add your handling code here:
-        
-    }//GEN-LAST:event_instrumentNumberTextFieldActionPerformed
 
     private void dButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dButtonActionPerformed
         checkInstrument();
@@ -824,6 +873,28 @@ public class MainMenuJFrame extends javax.swing.JFrame {
         player.play("i"+ instrument + " C6");
     }//GEN-LAST:event_cButton2ActionPerformed
 
+    private void instrumentNumberTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_instrumentNumberTextFieldActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_instrumentNumberTextFieldActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutButtonActionPerformed
+        // TODO add your handling code here:
+        LoginJFrame login = new LoginJFrame();
+        login.setVisible(true);
+        close();
+        
+    }//GEN-LAST:event_logoutButtonActionPerformed
+
+    private void close() {
+        WindowEvent winclose = new WindowEvent(this, WindowEvent.WINDOW_CLOSING);
+        Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(winclose);
+    }
+    
     public int checkInstrument(){
         String string = instrumentNumberTextField.getText();
         System.out.println("STRING: " + string);
@@ -963,6 +1034,13 @@ public class MainMenuJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel keyoardPanel;

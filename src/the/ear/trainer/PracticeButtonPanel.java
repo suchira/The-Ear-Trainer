@@ -29,6 +29,8 @@ public class PracticeButtonPanel extends javax.swing.JPanel {
         this.mainFrame = mainFrame;
         initComponents();
         this.add(leftPanel, BorderLayout.WEST);
+        
+        Level.setMAX_EXERCISES(4);
     }
 
     /**

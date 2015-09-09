@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class Level {
     private List<Exercise> exercises;
     private int levelNumber;
-    private int MAX_EXERCISES = 2;
+    private static int MAX_EXERCISES = 2;
     
     public Level(int levelNumber){
         exercises = new ArrayList<Exercise>();
@@ -48,8 +48,8 @@ public class Level {
         return MAX_EXERCISES;
     }
 
-    public void setMAX_EXERCISES(int MAX_EXERCISES) {
-        this.MAX_EXERCISES = MAX_EXERCISES;
+    public static void setMAX_EXERCISES(int MAX_EXERCISES) {
+        Level.MAX_EXERCISES = MAX_EXERCISES;
     }
 
     public void setExercises(List<Exercise> exercises) {
