@@ -144,7 +144,8 @@ public class ExerciseController {
             
             
         } catch (Exception e) {
-            System.out.println("ERROR in nextExercise() method!!!    " + e.getCause());
+            System.out.println("ERROR in nextExercise() method!!!    " );
+            e.printStackTrace();
         }
         return exercise;
     }
