@@ -31,6 +31,7 @@ public class LoginJFrame extends javax.swing.JFrame {
         initComponents();
         user_id.setText("Suchira");
         Password.setText("123");
+        this.setLocationRelativeTo(null);
 
     }
 
@@ -174,7 +175,7 @@ public class LoginJFrame extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("SyntheticaBlueSteel".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }

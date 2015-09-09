@@ -190,6 +190,11 @@ public class ExerciseController {
         return correct;
     }
     
+    public boolean checkAnswer2(Exercise e, String answer){
+        exercise = e;
+        return checkAnswer(answer);
+    }
+    
     public void play(){
         exercise.play();
     }
