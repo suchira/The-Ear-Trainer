@@ -8,8 +8,15 @@ package the.ear.trainer;
 
 import java.awt.BorderLayout;
 import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
@@ -33,6 +40,12 @@ public class PerformanceJFrame extends javax.swing.JFrame {
      * Creates new form PerformanceJFrame
      */
     public PerformanceJFrame() {
+        try {
+            BufferedImage img = ImageIO.read(new File("images/background4.png"));
+            this.setContentPane(new JLabel(new ImageIcon(img)));
+        } catch (IOException ex) {
+            Logger.getLogger(LoginJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
         initComponents();
         pGen = new PerformanceGenerator();
         dayChartPanel1 = pGen.creatDayPerformance();
@@ -80,6 +93,24 @@ public class PerformanceJFrame extends javax.swing.JFrame {
     }
     
     private void setDetailsInPanel(List<Integer> list, JPanel panel){
+        triedLabel.setText("0");
+            passedLabel.setText("0");
+            fullMarksLabel.setText("0");
+            moreThanTwiseLabel.setText("0");
+            triedLabelNotes.setText("0");
+            passedLabelNotes.setText("0");
+            fullmarksLabelNotes.setText("0");
+            moreThanTwiseLabelNotes.setText("0");
+            triedLabelIntervals.setText("0");
+            passedLabelIntervals.setText("0");
+            fullmarksLabelIntervals.setText("0");
+            moreThanTwiseLabelIntervals.setText("0");
+            triedLabelScales.setText("0");
+            passedLabelScales.setText("0");
+            fullmarksLabelScales.setText("0");
+            moreThanTwiseLabelScales.setText("0");
+            
+            
         if(panel.equals(chordsPanel)){
             triedLabel.setText("0");
             passedLabel.setText("0");
@@ -186,13 +217,17 @@ public class PerformanceJFrame extends javax.swing.JFrame {
         fullmarksLabelScales = new javax.swing.JLabel();
         moreThanTwiseLabelScales = new javax.swing.JLabel();
         choiceComboBox = new javax.swing.JComboBox();
-        jPanel4 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         basePanel.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        basePanel.setOpaque(false);
+
+        jPanel1.setBackground(new java.awt.Color(0, 51, 153));
+        jPanel1.setOpaque(false);
 
         monthChartPanel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        monthChartPanel.setOpaque(false);
 
         javax.swing.GroupLayout monthChartPanelLayout = new javax.swing.GroupLayout(monthChartPanel);
         monthChartPanel.setLayout(monthChartPanelLayout);
@@ -206,6 +241,7 @@ public class PerformanceJFrame extends javax.swing.JFrame {
         );
 
         dayChartPanel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        dayChartPanel.setOpaque(false);
 
         javax.swing.GroupLayout dayChartPanelLayout = new javax.swing.GroupLayout(dayChartPanel);
         dayChartPanel.setLayout(dayChartPanelLayout);
@@ -219,6 +255,7 @@ public class PerformanceJFrame extends javax.swing.JFrame {
         );
 
         overallChartPanel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        overallChartPanel.setOpaque(false);
 
         javax.swing.GroupLayout overallChartPanelLayout = new javax.swing.GroupLayout(overallChartPanel);
         overallChartPanel.setLayout(overallChartPanelLayout);
@@ -232,6 +269,7 @@ public class PerformanceJFrame extends javax.swing.JFrame {
         );
 
         scatterPlotChartPanel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        scatterPlotChartPanel.setOpaque(false);
 
         javax.swing.GroupLayout scatterPlotChartPanelLayout = new javax.swing.GroupLayout(scatterPlotChartPanel);
         scatterPlotChartPanel.setLayout(scatterPlotChartPanelLayout);
@@ -273,9 +311,12 @@ public class PerformanceJFrame extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("tab1", jPanel1);
+        jTabbedPane1.addTab("Overall Performance", jPanel1);
+
+        jPanel3.setOpaque(false);
 
         chartPanel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        chartPanel.setOpaque(false);
 
         javax.swing.GroupLayout chartPanelLayout = new javax.swing.GroupLayout(chartPanel);
         chartPanel.setLayout(chartPanelLayout);
@@ -287,6 +328,10 @@ public class PerformanceJFrame extends javax.swing.JFrame {
             chartPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 186, Short.MAX_VALUE)
         );
+
+        scrollPane.setOpaque(false);
+
+        jPanel6.setOpaque(false);
 
         chordsPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("CHORDS"));
 
@@ -590,15 +635,13 @@ public class PerformanceJFrame extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE)
+                .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 269, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(chartPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
                         .addComponent(choiceComboBox, 0, 173, Short.MAX_VALUE)
-                        .addGap(18, 18, 18))))
+                        .addGap(18, 18, 18))
+                    .addComponent(chartPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -613,20 +656,7 @@ public class PerformanceJFrame extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("tab2", jPanel3);
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 466, Short.MAX_VALUE)
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 250, Short.MAX_VALUE)
-        );
-
-        jTabbedPane1.addTab("tab3", jPanel4);
+        jTabbedPane1.addTab("Discriptive Analysis", jPanel3);
 
         javax.swing.GroupLayout basePanelLayout = new javax.swing.GroupLayout(basePanel);
         basePanel.setLayout(basePanelLayout);
@@ -661,7 +691,7 @@ public class PerformanceJFrame extends javax.swing.JFrame {
 
     private void choiceComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_choiceComboBoxActionPerformed
         setSecondTab(choiceComboBox.getSelectedItem().toString());
-        
+
     }//GEN-LAST:event_choiceComboBoxActionPerformed
 
     /**
@@ -728,7 +758,6 @@ public class PerformanceJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JPanel monthChartPanel;

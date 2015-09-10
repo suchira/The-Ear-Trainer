@@ -145,8 +145,14 @@ public class UserDA {
             
             String query2 = "SELECT * FROM bestScores WHERE userName = '" + user.getUserName() + "'";
             resultSet2 = statement.executeQuery(query2);
-            System.out.println("Updating the user....");
+            System.out.println("Updating the user...." + user.getUserName());
             
+            if(!resultSet2.next()){
+                user.setChordsBestscore(0);
+                user.setScalesBestscore(0);
+                user.setIntervalsBestscore(0);
+                user.setNotesBestscore(0);
+            }
             while(resultSet2.next()){
                 double d = resultSet2.getDouble("finalScore");
                 String category = resultSet2.getString("category") ;
