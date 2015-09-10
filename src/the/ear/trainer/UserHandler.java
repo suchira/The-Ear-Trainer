@@ -32,7 +32,7 @@ public class UserHandler {
             user = userDA.GetUser(userName, password);
             String enteredPassword = password;
 
-            if(user.getPassword().equals(enteredPassword)){
+            if(user.getPassword().equals(MD5Hashing.getHashed(enteredPassword))){
                 return true;
             }
             return false;

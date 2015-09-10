@@ -39,8 +39,11 @@ public class UserDA {
     
     public User GetUser(String userName, String password){
         String password1 = null;
+        String password2 = password;
         User user = User.getUser(); // Shouldn't be changed 
         try {
+            password = MD5Hashing.getHashed(password);
+            System.out.println("PASS: " + password);
             statement = dbCon.getCon().createStatement();
             statement2 = dbCon.getCon().createStatement();
             statement3 = dbCon.getCon().createStatement();
@@ -63,7 +66,7 @@ public class UserDA {
                 password1 = resultSet.getString("password");
                 if(password1.equals(password)){
                     user.setUserName(userName);
-                    user.setPassword(password);
+                    user.setPassword(password2);
                     user.setName(resultSet.getString("name"));
                     user.setPriority(resultSet.getString("priority"));
                     

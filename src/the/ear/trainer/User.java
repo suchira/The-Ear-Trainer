@@ -6,6 +6,10 @@
 
 package the.ear.trainer;
 
+import java.security.NoSuchAlgorithmException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Suchira
@@ -104,7 +108,13 @@ public class User {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        try {
+            password = MD5Hashing.getHashed(password);
+            this.password = password;
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("ERROR IN 'setPassword().......'");
+        }
     }
 
     public Report[] getReport() {
