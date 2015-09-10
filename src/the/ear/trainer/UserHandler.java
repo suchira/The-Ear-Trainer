@@ -6,6 +6,8 @@
 
 package the.ear.trainer;
 
+import java.util.List;
+
 /**
  *
  * @author Suchira
@@ -63,4 +65,11 @@ public class UserHandler {
         userDA.updateUser();
     }
     
+    public List<Object []> getUsers(){
+        return userDA.getAll();
+    }
+    
+    public void grantPermission(String username, String permission){
+        userDA.grantAdminPermission(username, permission);
+    }
 }

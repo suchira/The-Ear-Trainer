@@ -11,6 +11,8 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.WindowEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -18,13 +20,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.sound.midi.Instrument;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 import org.jfugue.player.Player;
 import org.jfugue.theory.Intervals;
 import org.jfugue.theory.*;
+import sun.swing.BakedArrayList;
 
 
 /**
@@ -79,12 +85,23 @@ public class MainMenuJFrame extends javax.swing.JFrame {
     }
     
     private MainMenuJFrame(User user) {
+        try {
+            BufferedImage img = ImageIO.read(new File("images/background3.png"));
+            this.setContentPane(new JLabel(new ImageIcon(img)));
+        } catch (IOException ex) {
+            Logger.getLogger(LoginJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
         initComponents();
         cSharpButton.setBackground(Color.BLACK);
         this.repaint();
         this.user = user;
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        
+        if(user.getPriority().equals("User")){
+            grantPermissionMenuItem.setEnabled(false);
+            resetMenuItem.setEnabled(false);
+        }
         
         updateUserDetails();
         
@@ -151,12 +168,12 @@ public class MainMenuJFrame extends javax.swing.JFrame {
         aSharpButton = new javax.swing.JButton();
         eButton = new javax.swing.JButton();
         cButton2 = new javax.swing.JButton();
-        cSharpButton = new javax.swing.JButton();
         aButton = new javax.swing.JButton();
         dSharpButton = new javax.swing.JButton();
         dButton = new javax.swing.JButton();
         gButton = new javax.swing.JButton();
         cButton = new javax.swing.JButton();
+        cSharpButton = new javax.swing.JButton();
         instrumentNumberTextField = new javax.swing.JTextField();
         menuBarPanel = new javax.swing.JPanel();
         logoutButton = new javax.swing.JButton();
@@ -189,24 +206,37 @@ public class MainMenuJFrame extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
+        grantPermissionMenuItem = new javax.swing.JMenuItem();
+        resetMenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        userDetailsPanel.setBackground(new java.awt.Color(255, 255, 255));
         userDetailsPanel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
+        nameLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        nameLabel.setForeground(new java.awt.Color(0, 102, 102));
         nameLabel.setText("jLabel7");
 
+        jLabel1.setFont(new java.awt.Font("Calibri", 2, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 102, 102));
         jLabel1.setText("Username:");
 
+        jLabel3.setFont(new java.awt.Font("Calibri", 2, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 102, 102));
         jLabel3.setText("Last Visited:");
 
+        lastseenLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lastseenLabel.setForeground(new java.awt.Color(0, 102, 102));
         lastseenLabel.setText("jLabel7");
 
-        bestscoresPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Best Scores"));
+        bestscoresPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Best Scores", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 3, 12), new java.awt.Color(255, 255, 255))); // NOI18N
+        bestscoresPanel.setForeground(new java.awt.Color(255, 255, 255));
+        bestscoresPanel.setOpaque(false);
         bestscoresPanel.setLayout(new java.awt.GridBagLayout());
 
+        intervalLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        intervalLabel1.setForeground(new java.awt.Color(0, 102, 102));
         intervalLabel1.setText("0");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -215,6 +245,8 @@ public class MainMenuJFrame extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(6, 93, 18, 6);
         bestscoresPanel.add(intervalLabel1, gridBagConstraints);
 
+        jLabel17.setFont(new java.awt.Font("Calibri", 2, 14)); // NOI18N
+        jLabel17.setForeground(new java.awt.Color(0, 102, 102));
         jLabel17.setText("Intervals");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -224,6 +256,8 @@ public class MainMenuJFrame extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(6, 6, 18, 0);
         bestscoresPanel.add(jLabel17, gridBagConstraints);
 
+        jLabel19.setFont(new java.awt.Font("Calibri", 2, 14)); // NOI18N
+        jLabel19.setForeground(new java.awt.Color(0, 102, 102));
         jLabel19.setText("Scales");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -233,6 +267,8 @@ public class MainMenuJFrame extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(6, 6, 0, 0);
         bestscoresPanel.add(jLabel19, gridBagConstraints);
 
+        jLabel14.setFont(new java.awt.Font("Calibri", 2, 14)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(0, 102, 102));
         jLabel14.setText("Chords");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -243,6 +279,8 @@ public class MainMenuJFrame extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(6, 6, 0, 0);
         bestscoresPanel.add(jLabel14, gridBagConstraints);
 
+        jLabel11.setFont(new java.awt.Font("Calibri", 2, 14)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(0, 102, 102));
         jLabel11.setText("Notes");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -253,6 +291,8 @@ public class MainMenuJFrame extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(27, 6, 0, 0);
         bestscoresPanel.add(jLabel11, gridBagConstraints);
 
+        notesLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        notesLabel1.setForeground(new java.awt.Color(0, 102, 102));
         notesLabel1.setText("0");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -261,6 +301,8 @@ public class MainMenuJFrame extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(27, 93, 0, 6);
         bestscoresPanel.add(notesLabel1, gridBagConstraints);
 
+        chordsLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        chordsLabel1.setForeground(new java.awt.Color(0, 102, 102));
         chordsLabel1.setText("0");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -270,6 +312,8 @@ public class MainMenuJFrame extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(6, 93, 0, 6);
         bestscoresPanel.add(chordsLabel1, gridBagConstraints);
 
+        scalesLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        scalesLabel1.setForeground(new java.awt.Color(0, 102, 102));
         scalesLabel1.setText("0");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -314,8 +358,9 @@ public class MainMenuJFrame extends javax.swing.JFrame {
                 .addGap(22, 22, 22))
         );
 
-        dynamicChangingPanel.setBackground(new java.awt.Color(255, 255, 255));
+        dynamicChangingPanel.setBackground(new java.awt.Color(225, 225, 239));
         dynamicChangingPanel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        dynamicChangingPanel.setOpaque(false);
         dynamicChangingPanel.setPreferredSize(new java.awt.Dimension(373, 373));
 
         javax.swing.GroupLayout dynamicChangingPanelLayout = new javax.swing.GroupLayout(dynamicChangingPanel);
@@ -329,11 +374,19 @@ public class MainMenuJFrame extends javax.swing.JFrame {
             .addGap(0, 318, Short.MAX_VALUE)
         );
 
-        instrumentPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Instrument"));
+        instrumentPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Instrument", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 3, 11), new java.awt.Color(0, 51, 51))); // NOI18N
+        instrumentPanel.setForeground(new java.awt.Color(0, 153, 153));
+        instrumentPanel.setOpaque(false);
 
+        jLabel5.setFont(new java.awt.Font("Quartz MS", 1, 14)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(0, 153, 153));
         jLabel5.setText("Instrument");
 
+        keyoardPanel.setBackground(new java.awt.Color(233, 227, 227));
+        keyoardPanel.setOpaque(false);
+
         fButton.setBackground(new java.awt.Color(255, 255, 255));
+        fButton.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, new java.awt.Color(0, 51, 51), null));
         fButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 fButtonActionPerformed(evt);
@@ -341,6 +394,7 @@ public class MainMenuJFrame extends javax.swing.JFrame {
         });
 
         bButton.setBackground(new java.awt.Color(255, 255, 255));
+        bButton.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, new java.awt.Color(0, 51, 51), null));
         bButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bButtonActionPerformed(evt);
@@ -348,6 +402,7 @@ public class MainMenuJFrame extends javax.swing.JFrame {
         });
 
         fSharpButton.setBackground(new java.awt.Color(0, 0, 0));
+        fSharpButton.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, new java.awt.Color(0, 51, 51), null));
         fSharpButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 fSharpButtonActionPerformed(evt);
@@ -355,6 +410,7 @@ public class MainMenuJFrame extends javax.swing.JFrame {
         });
 
         gSharpButton.setBackground(new java.awt.Color(0, 0, 0));
+        gSharpButton.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, new java.awt.Color(0, 51, 51), null));
         gSharpButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 gSharpButtonActionPerformed(evt);
@@ -362,6 +418,7 @@ public class MainMenuJFrame extends javax.swing.JFrame {
         });
 
         aSharpButton.setBackground(new java.awt.Color(0, 0, 0));
+        aSharpButton.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, new java.awt.Color(0, 51, 51), null));
         aSharpButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 aSharpButtonActionPerformed(evt);
@@ -369,6 +426,7 @@ public class MainMenuJFrame extends javax.swing.JFrame {
         });
 
         eButton.setBackground(new java.awt.Color(255, 255, 255));
+        eButton.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, new java.awt.Color(0, 51, 51), null));
         eButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 eButtonActionPerformed(evt);
@@ -376,21 +434,15 @@ public class MainMenuJFrame extends javax.swing.JFrame {
         });
 
         cButton2.setBackground(new java.awt.Color(255, 255, 255));
+        cButton2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, new java.awt.Color(0, 51, 51), null));
         cButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cButton2ActionPerformed(evt);
             }
         });
 
-        cSharpButton.setBackground(new java.awt.Color(0, 0, 0));
-        cSharpButton.setOpaque(false);
-        cSharpButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cSharpButtonActionPerformed(evt);
-            }
-        });
-
         aButton.setBackground(new java.awt.Color(255, 255, 255));
+        aButton.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, new java.awt.Color(0, 51, 51), null));
         aButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 aButtonActionPerformed(evt);
@@ -398,6 +450,7 @@ public class MainMenuJFrame extends javax.swing.JFrame {
         });
 
         dSharpButton.setBackground(new java.awt.Color(0, 0, 0));
+        dSharpButton.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, new java.awt.Color(0, 51, 51), null));
         dSharpButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 dSharpButtonActionPerformed(evt);
@@ -405,6 +458,7 @@ public class MainMenuJFrame extends javax.swing.JFrame {
         });
 
         dButton.setBackground(new java.awt.Color(255, 255, 255));
+        dButton.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, new java.awt.Color(0, 51, 51), null));
         dButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 dButtonActionPerformed(evt);
@@ -412,6 +466,7 @@ public class MainMenuJFrame extends javax.swing.JFrame {
         });
 
         gButton.setBackground(new java.awt.Color(255, 255, 255));
+        gButton.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, new java.awt.Color(0, 51, 51), null));
         gButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 gButtonActionPerformed(evt);
@@ -419,9 +474,18 @@ public class MainMenuJFrame extends javax.swing.JFrame {
         });
 
         cButton.setBackground(new java.awt.Color(255, 255, 255));
+        cButton.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, new java.awt.Color(0, 51, 51), null));
         cButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cButtonActionPerformed(evt);
+            }
+        });
+
+        cSharpButton.setBackground(new java.awt.Color(0, 0, 0));
+        cSharpButton.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, new java.awt.Color(0, 51, 51), null));
+        cSharpButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cSharpButtonActionPerformed(evt);
             }
         });
 
@@ -465,12 +529,13 @@ public class MainMenuJFrame extends javax.swing.JFrame {
             keyoardPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(keyoardPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(keyoardPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(gSharpButton, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cSharpButton, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(dSharpButton, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(fSharpButton, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(aSharpButton, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(keyoardPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(keyoardPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(gSharpButton, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(dSharpButton, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(fSharpButton, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(aSharpButton, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cSharpButton, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(keyoardPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cButton, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -495,14 +560,12 @@ public class MainMenuJFrame extends javax.swing.JFrame {
         instrumentPanelLayout.setHorizontalGroup(
             instrumentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(instrumentPanelLayout.createSequentialGroup()
-                .addGroup(instrumentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addContainerGap()
+                .addGroup(instrumentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(keyoardPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(instrumentPanelLayout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addComponent(keyoardPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(instrumentPanelLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(59, 59, 59)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(instrumentNumberTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(55, Short.MAX_VALUE))
         );
@@ -517,6 +580,8 @@ public class MainMenuJFrame extends javax.swing.JFrame {
                 .addComponent(keyoardPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(74, Short.MAX_VALUE))
         );
+
+        menuBarPanel.setOpaque(false);
 
         logoutButton.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         logoutButton.setText("Logout");
@@ -543,9 +608,11 @@ public class MainMenuJFrame extends javax.swing.JFrame {
         );
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Statistics"));
+        jPanel1.setOpaque(false);
         jPanel1.setLayout(new java.awt.BorderLayout());
 
         totalScoresPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("YOUR SCORES"));
+        totalScoresPanel.setOpaque(false);
         totalScoresPanel.setLayout(new java.awt.GridBagLayout());
 
         jLabel10.setText("Notes");
@@ -621,6 +688,7 @@ public class MainMenuJFrame extends javax.swing.JFrame {
 
         jPanel1.add(totalScoresPanel, java.awt.BorderLayout.CENTER);
 
+        jPanel4.setOpaque(false);
         jPanel4.setLayout(new java.awt.GridBagLayout());
 
         exTriedLabel.setText("0");
@@ -660,6 +728,7 @@ public class MainMenuJFrame extends javax.swing.JFrame {
         jPanel1.add(jPanel4, java.awt.BorderLayout.PAGE_START);
 
         currentStatisticsPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Current Statistics"));
+        currentStatisticsPanel.setOpaque(false);
         currentStatisticsPanel.setLayout(new java.awt.GridLayout(3, 4));
 
         jLabel18.setText("Number of exercises you tried");
@@ -694,28 +763,43 @@ public class MainMenuJFrame extends javax.swing.JFrame {
             }
         });
 
-        jMenu1.setText("File");
+        jMenu1.setText("Backup");
 
         jMenuItem2.setText("Backup");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem2);
 
         jMenuItem1.setText("Exit");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem1);
 
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Edit");
+        jMenu2.setText("Permissions");
 
-        jMenuItem3.setText("Grant Permission");
-        jMenu2.add(jMenuItem3);
-
-        jMenuItem4.setText("Reset");
-        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+        grantPermissionMenuItem.setText("Grant Permission");
+        grantPermissionMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem4ActionPerformed(evt);
+                grantPermissionMenuItemActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem4);
+        jMenu2.add(grantPermissionMenuItem);
+
+        resetMenuItem.setText("Reset");
+        resetMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                resetMenuItemActionPerformed(evt);
+            }
+        });
+        jMenu2.add(resetMenuItem);
 
         jMenuBar1.add(jMenu2);
 
@@ -738,11 +822,11 @@ public class MainMenuJFrame extends javax.swing.JFrame {
                                 .addGap(55, 55, 55)
                                 .addComponent(performanceButton)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(dynamicChangingPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 774, Short.MAX_VALUE))
+                        .addComponent(dynamicChangingPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 765, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 433, Short.MAX_VALUE)
-                        .addGap(30, 30, 30)
-                        .addComponent(currentStatisticsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(currentStatisticsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(instrumentPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
@@ -810,14 +894,10 @@ public class MainMenuJFrame extends javax.swing.JFrame {
     private void dButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dButtonActionPerformed
         checkInstrument();
         player.play("i"+ instrument + " D");
+        
+        
         // TODO add your handling code here:
     }//GEN-LAST:event_dButtonActionPerformed
-
-    private void cSharpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cSharpButtonActionPerformed
-        checkInstrument();
-        player.play("i"+ instrument + " C#");
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cSharpButtonActionPerformed
 
     private void dSharpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dSharpButtonActionPerformed
         checkInstrument();
@@ -878,9 +958,11 @@ public class MainMenuJFrame extends javax.swing.JFrame {
 
     }//GEN-LAST:event_instrumentNumberTextFieldActionPerformed
 
-    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+    private void resetMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetMenuItemActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem4ActionPerformed
+        Database db = new Database();
+        db.reset();
+    }//GEN-LAST:event_resetMenuItemActionPerformed
 
     private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutButtonActionPerformed
         // TODO add your handling code here:
@@ -890,8 +972,33 @@ public class MainMenuJFrame extends javax.swing.JFrame {
         
     }//GEN-LAST:event_logoutButtonActionPerformed
 
+    private void grantPermissionMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_grantPermissionMenuItemActionPerformed
+        // TODO add your handling code here:
+        SearchJPanel searchJPanel = new SearchJPanel();
+        repaintPanel(dynamicChangingPanel, searchJPanel);
+    }//GEN-LAST:event_grantPermissionMenuItemActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+        close();
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+        Backup backup = new Backup(this, rootPaneCheckingEnabled);
+        backup.setVisible(true);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void cSharpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cSharpButtonActionPerformed
+        // TODO add your handling code here:
+        
+        checkInstrument();
+        player.play("i"+ instrument + " C#");
+    }//GEN-LAST:event_cSharpButtonActionPerformed
+
     private void close() {
         WindowEvent winclose = new WindowEvent(this, WindowEvent.WINDOW_CLOSING);
+        singleton = null;
         Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(winclose);
     }
     
@@ -1014,6 +1121,7 @@ public class MainMenuJFrame extends javax.swing.JFrame {
     private javax.swing.JButton fSharpButton;
     private javax.swing.JButton gButton;
     private javax.swing.JButton gSharpButton;
+    private javax.swing.JMenuItem grantPermissionMenuItem;
     private javax.swing.JTextField instrumentNumberTextField;
     private javax.swing.JPanel instrumentPanel;
     private javax.swing.JLabel intervalLabel;
@@ -1039,8 +1147,6 @@ public class MainMenuJFrame extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel keyoardPanel;
@@ -1052,12 +1158,16 @@ public class MainMenuJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel notesLabel1;
     private javax.swing.JButton performanceButton;
     private javax.swing.JButton practiceButton;
+    private javax.swing.JMenuItem resetMenuItem;
     private javax.swing.JLabel scalesLabel;
     private javax.swing.JLabel scalesLabel1;
     private javax.swing.JPanel totalScoresPanel;
     private javax.swing.JPanel userDetailsPanel;
     // End of variables declaration//GEN-END:variables
 
+    public void repaintDynamicPanel(JPanel exercisePanel) {
+        repaintPanel(dynamicChangingPanel, exercisePanel);
+    }
     public void repaintDynamicPanel(ExercisePanel exercisePanel) {
         repaintPanel(dynamicChangingPanel, exercisePanel);
     }

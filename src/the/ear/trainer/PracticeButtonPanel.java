@@ -56,8 +56,12 @@ public class PracticeButtonPanel extends javax.swing.JPanel {
         levelComboBox = new javax.swing.JComboBox();
         leftPanel = new javax.swing.JPanel();
 
+        setBackground(new java.awt.Color(225, 225, 239));
+        setOpaque(false);
         setLayout(new java.awt.BorderLayout(10, 10));
 
+        rightPanel.setBackground(new java.awt.Color(225, 225, 239));
+        rightPanel.setOpaque(false);
         rightPanel.setPreferredSize(new java.awt.Dimension(87, 324));
 
         javax.swing.GroupLayout rightPanelLayout = new javax.swing.GroupLayout(rightPanel);
@@ -73,6 +77,8 @@ public class PracticeButtonPanel extends javax.swing.JPanel {
 
         add(rightPanel, java.awt.BorderLayout.EAST);
 
+        borderPanel.setBackground(new java.awt.Color(225, 225, 239));
+        borderPanel.setOpaque(false);
         borderPanel.setLayout(new java.awt.GridBagLayout());
 
         nextButton.setText("Next");
@@ -191,6 +197,9 @@ public class PracticeButtonPanel extends javax.swing.JPanel {
         borderPanel.add(levelComboBox, gridBagConstraints);
 
         add(borderPanel, java.awt.BorderLayout.CENTER);
+
+        leftPanel.setBackground(new java.awt.Color(225, 225, 239));
+        leftPanel.setOpaque(false);
 
         javax.swing.GroupLayout leftPanelLayout = new javax.swing.GroupLayout(leftPanel);
         leftPanel.setLayout(leftPanelLayout);

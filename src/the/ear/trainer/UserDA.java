@@ -10,7 +10,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -200,5 +202,36 @@ public class UserDA {
             Logger.getLogger(UserDA.class.getName()).log(Level.SEVERE, null, ex);
         }
         return true;
+    }
+
+    public List<Object []> getAll() {
+        List<Object []> users = new ArrayList<>();
+        try {
+            statement = dbCon.getCon().createStatement();
+            
+            String query = "SELECT * FROM user";
+            resultSet = statement.executeQuery(query);
+            
+            while(resultSet.next()){
+               Object[] a = {resultSet.getString(4), resultSet.getString(1), resultSet.getString(3)};
+               users.add(a);
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDA.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return users;
+    }
+    
+    public void grantAdminPermission(String username, String permission){
+        try {
+            statement = dbCon.getCon().createStatement();
+            
+            String query = "UPDATE user SET priority = '" + permission + "' WHERE userName = '" + username + "'" ;
+            statement.executeUpdate(query);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDA.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

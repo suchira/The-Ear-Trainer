@@ -131,6 +131,7 @@ public class SignUpJFrame extends javax.swing.JFrame {
         if(userHandler.isaGivenUsername(userNameTextField.getText())){
             JOptionPane.showMessageDialog(null, "Try another username");            
         }
+        
         else{
             System.out.println("username1: " + userNameTextField.getText());
             System.out.println("pass1: " + passwordField.getText());

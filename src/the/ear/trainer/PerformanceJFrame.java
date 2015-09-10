@@ -81,24 +81,40 @@ public class PerformanceJFrame extends javax.swing.JFrame {
     
     private void setDetailsInPanel(List<Integer> list, JPanel panel){
         if(panel.equals(chordsPanel)){
+            triedLabel.setText("0");
+            passedLabel.setText("0");
+            fullMarksLabel.setText("0");
+            moreThanTwiseLabel.setText("0");
             triedLabel.setText(Integer.toString(list.get(0)));
             passedLabel.setText(Integer.toString(list.get(1)));
             fullMarksLabel.setText(Integer.toString(list.get(2)));
             moreThanTwiseLabel.setText(Integer.toString(list.get(3)));
         }
         if(panel.equals(notesPanel)){
+            triedLabelNotes.setText("0");
+            passedLabelNotes.setText("0");
+            fullmarksLabelNotes.setText("0");
+            moreThanTwiseLabelNotes.setText("0");
             triedLabelNotes.setText(Integer.toString(list.get(0)));
             passedLabelNotes.setText(Integer.toString(list.get(1)));
             fullmarksLabelNotes.setText(Integer.toString(list.get(2)));
             moreThanTwiseLabelNotes.setText(Integer.toString(list.get(3)));
         }
         if(panel.equals(intervalPanel)){
+            triedLabelIntervals.setText("0");
+            passedLabelIntervals.setText("0");
+            fullmarksLabelIntervals.setText("0");
+            moreThanTwiseLabelIntervals.setText("0");
             triedLabelIntervals.setText(Integer.toString(list.get(0)));
             passedLabelIntervals.setText(Integer.toString(list.get(1)));
             fullmarksLabelIntervals.setText(Integer.toString(list.get(2)));
             moreThanTwiseLabelIntervals.setText(Integer.toString(list.get(3)));
         }
         if(panel.equals(scalesPanel)){
+            triedLabelScales.setText("0");
+            passedLabelScales.setText("0");
+            fullmarksLabelScales.setText("0");
+            moreThanTwiseLabelScales.setText("0");
             triedLabelScales.setText(Integer.toString(list.get(0)));
             passedLabelScales.setText(Integer.toString(list.get(1)));
             fullmarksLabelScales.setText(Integer.toString(list.get(2)));
