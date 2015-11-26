@@ -1,1 +1,1 @@
-# -Ear-Trainer
+# The - Ear - Trainer
